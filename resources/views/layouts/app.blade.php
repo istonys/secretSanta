@@ -58,6 +58,9 @@
                                     <a class="dropdown-item" href="{{ route('wishes.index') }}">
                                          {{ __('Wishes') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('groups.index') }}">
+                                        {{ __('Groups') }}
+                                   </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
