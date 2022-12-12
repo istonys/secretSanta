@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\User;
+use App\Models\GroupUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class GroupController extends Controller
 {
@@ -37,13 +41,17 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'description'=>'required'
-        ]);
-        //create a new Product
-        Group::create($request->all());
-        //redirect the user and send message
+        $input = $request->all();
+        $group=new Group;
+        $group->name = $request['name'];
+        $group->description = $request['description'];
+        $group->user_id = auth()->user()->id;
+        $group->save();
+        $groupuser=array([
+            'group_id'=>Group::orderBy('id', 'DESC')->first()->id,
+            'user_id'=>auth()->user()->id
+            ]);
+        $group->users()->attach($groupuser);
         return redirect()->route('groups.index')->with('success','Group created successfully');
     }
 
@@ -89,11 +97,21 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        //
+        \DB::delete('DELETE from group_user WHERE group_id =?',[$group->id]);
+        $group->delete();
+        return redirect()->route('groups.index')->with('success','Group deleted successfully');
     }
 
     public function members(Group $group)
     {
-        return view('groups.index');
+        $users=\DB::select('SELECT * from group_user WHERE group_id =?',[$group->id]);
+        //$usernames=\DB::select('SELECT * from users');
+        // $users2=array([]);
+        // foreach($users as $user){
+        //     $users2 =  \DB::table('users')->whereIn('id', $user->user_id )->get();
+        // }
+        //$usernames=\DB::select('SELECT * from users WHERE id=?',[$users->user_id]);
+        return view('groups.members',compact('users'))->with(request()->input('page'));
+        
     }
 }

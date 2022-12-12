@@ -31,7 +31,7 @@
         <td>{{ $group->description }}</td>
         <td>
             <form action="{{ route('groups.destroy',$group->id) }}" method="POST">
-                <a class="btn btn-info" >Show members</a>
+                <a class="btn btn-info" href="{{ route('groups.members',$group->id) }}">Show members</a>
                 <a class="btn btn-primary" >Leave</a>
                 @csrf
                 @method('DELETE')

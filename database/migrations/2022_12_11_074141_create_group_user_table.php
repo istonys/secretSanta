@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('groupusers', function (Blueprint $table) {
+        Schema::create('group_user', function (Blueprint $table) {
+            $table->increments('id');
             $table->unsignedBigInteger('group_id');
-            $table->foreign('group_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
 
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('groupusers');
+        Schema::dropIfExists('group_user');
     }
 };
