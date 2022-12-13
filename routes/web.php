@@ -19,6 +19,7 @@ Route::middleware(['auth'])->group(function(){
 });
 Route::middleware(['auth'])->group(function(){
     Route::get('groups/members/{group}','App\Http\Controllers\GroupController@members')->name('groups.members');
+    Route::delete('groups/{group}/{id}','App\Http\Controllers\GroupController@leave')->name('groups.leave');
     Route::resource('groups',App\Http\Controllers\GroupController::class);
 });
 
