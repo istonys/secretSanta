@@ -97,21 +97,44 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        \DB::delete('DELETE from group_user WHERE group_id =?',[$group->id]);
-        $group->delete();
-        return redirect()->route('groups.index')->with('success','Group deleted successfully');
+        $gid=$group->id;
+        $id=auth()->user()->id;
+        \DB::delete('DELETE from group_user WHERE group_id =? AND  user_id =?',[$gid,$id]);
+        // \DB::delete('DELETE from group_user WHERE group_id =?',[$group->id]);
+        // $group->delete();
+        return redirect()->route('groups.index')->with('success','Group left successfully');
     }
 
     public function members(Group $group)
     {
-        $users=\DB::select('SELECT * from group_user WHERE group_id =?',[$group->id]);
-        //$usernames=\DB::select('SELECT * from users');
-        // $users2=array([]);
-        // foreach($users as $user){
-        //     $users2 =  \DB::table('users')->whereIn('id', $user->user_id )->get();
-        // }
-        //$usernames=\DB::select('SELECT * from users WHERE id=?',[$users->user_id]);
+        //$groups=(['name']);
+        $gid=$group->id;
+        $users=\DB::table('groups')->join('group_user','groups.id','=','group_user.group_id')
+        ->join('users','group_user.user_id','=','users.id')->where('groups.id','=',$gid)
+        ->get(['users.name']);
         return view('groups.members',compact('users'))->with(request()->input('page'));
         
+    }
+    public function invite(Group $group){
+        $ids=\DB::select('SELECT * from groups WHERE group_id =?',[$group->id]);
+        $id=$ids->group_id;
+
+    }
+    public function leave(Group $group, Group $id){
+        $id=auth()->user()->id;
+        //$gid=$group->id;
+        //$group_id=$group->id;
+        // $deleted=DB::table('group_users')->where('group_id',$group_id)->where('user_id',$id)->delete;
+        \DB::delete('DELETE * from group_user WHERE group_id =? AND  user_id =?',[$gid,$id]);
+        //\DB::table('group_user')->where('group_id',$group->id)->where('user_id',$id)->delete();
+
+        //$m=\DB::select('SELECT * from group_user WHERE group_id = ?',[$group->id]);
+        //GroupUser::find($group->id);
+        // if($m){
+        //     if($m->user_id==$id){
+        //         $m->delete();
+        //     }
+        // }
+        return redirect()->route('groups.index')->with('success','Group left successfully');
     }
 }

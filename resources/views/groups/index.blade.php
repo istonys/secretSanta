@@ -30,13 +30,21 @@
         <td>{{ $group->name }}</td>
         <td>{{ $group->description }}</td>
         <td>
-            <form action="{{ route('groups.destroy',$group->id) }}" method="POST">
+            <form action="{{ route('groups.destroy',['group'=>$group->id]) }}" method="POST">
                 <a class="btn btn-info" href="{{ route('groups.members',$group->id) }}">Show members</a>
-                <a class="btn btn-primary" >Leave</a>
+                
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger">Delete</button>
+                
+                <button type="submit" class="btn btn-danger">Leave</button>
+                
             </form>
+            {{-- <form action="{{ route('groups.leave',['group'=>$group->id,'id'=>$group->id]) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <!--<a class="btn btn-primary" href="{{ route('groups.leave',$group->id) }}"method="POST">Leave</a>-->
+                <button type="submit">Leave</button>
+            </form> --}}
         </td>
     </tr>
     @endforeach
