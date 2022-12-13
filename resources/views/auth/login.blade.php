@@ -1,13 +1,22 @@
+
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+    .container {
+        font-family: 'Oswald';
+    }
+
+</style>
+
 <div class="container">
+    <div class="py-3 header text-center fw-bold fs-2" style="color: #DDE1EC">Secret Santa</div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
+            <div class="card border-white" style="background-color: #2E3641; color:#DDE1EC">
+                <div class="card-header border-white" style="background-color:#4D5258; color:#DDE1EC">{{ __('Login') }}</div>
+                <div class="card-body border-white" style="color:#DDE1EC">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -53,12 +62,12 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn text-black" style="background-color:#DDE1EC">
                                     {{ __('Login') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link" href="{{ route('password.request') }}" style="color:#DDE1EC">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
@@ -68,6 +77,13 @@
                 </div>
             </div>
         </div>
-    </div>
+        <figure class="py-4 text-center" style="color:#DDE1EC">
+            <blockquote class="blockquote">
+            <p>"Adults can take a simple holiday for children and f*ck it up."</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+            <cite title="Source Title" style="color: #DDE1EC">Angry child</cite>
+            </figcaption>
+        </figure>
 </div>
 @endsection
