@@ -1,12 +1,56 @@
+
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+    body {
+        height: 100%;
+    }
+    .container {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 50px 200px 200px;
+
+        gap: 50px;
+        height: 100%;
+    }
+    .container div {
+    }
+    .header {
+        background-color: white;
+        grid-column-start: 1;
+        grid-column-end: span 4;
+        text-align: center;
+        font-size: 200%;
+        font-weight: bold;
+    }
+    .col-md-8{
+        width: 100%;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 4;
+    }
+    .card {
+        height: 90%;
+        width: 90%
+    }
+    #asd {
+        border: 1px solid black;
+        grid-row-start: 2;
+        grid-row-end: 4;
+    }
+    div .card-body form {
+        height: 100%;
+    }
+</style>
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="header">Secret Santa</div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -68,6 +112,27 @@
                 </div>
             </div>
         </div>
-    </div>
+    <div id="asd"><ul>
+        <li class="hohoho">
+          <h2></h2><h2></h2><h2></h2>
+        </li>
+      <li class="santaclaus">
+          <div class="chapeu">
+            <div class="cone-2"></div>
+          <div class="cone-1"></div>
+        </div>
+        <div class="face">
+            <div class="eyes"></div>
+          <div class="nariz"></div>
+          <div class="barba">
+              <div class="boca"></div>
+          </div>
+        </div>
+        <div class="orelhas"></div>
+      </li>
+      <li class="hohoho">
+          <h2></h2><h2></h2><h2></h2>
+      </li>
+    </ul></div>
 </div>
 @endsection
