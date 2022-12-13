@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function(){
     Route::resource('wishes', App\Http\Controllers\WishController::class);
 });
+Route::middleware(['auth'])->group(function(){
+    Route::get('groups/members/{group}','App\Http\Controllers\GroupController@members')->name('groups.members');
+    Route::resource('groups',App\Http\Controllers\GroupController::class);
+});
 
 Auth::routes();
 
@@ -27,3 +31,4 @@ Route::get('/', function () {
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
