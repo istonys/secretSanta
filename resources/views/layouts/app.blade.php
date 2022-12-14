@@ -15,9 +15,9 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body style="background-color: #2E3641">
+<body style="background-color: #2A5B53; font-family: 'Oswald'">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #B8BECC">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #ECEBF1">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
