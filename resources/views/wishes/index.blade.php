@@ -2,22 +2,25 @@
 
 @section('content')
 <div class="container">
-  <div class="py-3 header text-center fw-bold fs-2" style="color: #DDE1EC">Secret Santa</div>
-    <div class="row justify-content-center">
-        <a class="btn btn-primary my-3" style="color:#2E3641; background-color: #DDE1EC" href="{{ route('wishes.create') }}">
+
+    <div class="row justify-content-center py-3">
+        <div class="header text-center fw-bold fs-2 w-50 p-3" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
+    </div>
+  
+    <div class="row justify-content-center py-3">
+        <a class="btn btn-success my-3" style="color:#DDE1EC"href="{{ route('wishes.create') }}">
          {{ __('Create a wish!') }}
      </a>
-     <table class="table table-hover" style="color: #DDE1EC">
-        <thead>
+     <table class="table table-hover rounded rounded-3 overflow-hidden" style="color: #ECEBF1">
+        <thead style="background-color: #4a8e7a">
           <tr>
             <th scope="col">Description</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-          
           @foreach ($wishes as $wish )
-          <tr>
+          <tr style="color:#2E3641; background-color: #ECEBF1">
             <th scope="row">{{ $wish->description }}</th>
             <td>
                 <span class="d-inline">
