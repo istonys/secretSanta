@@ -3,13 +3,6 @@
 
 @section('content')
 
-<style>
-    .container {
-        font-family: 'Oswald';
-    }
-
-</style>
-
 <div class="container">
     <div class="py-3 header text-center fw-bold fs-2" style="color: #DDE1EC">Secret Santa</div>
     <div class="row justify-content-center">
@@ -62,7 +55,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn text-black" style="background-color:#DDE1EC">
+                                <button type="submit" class="btn" style="background-color:#DDE1EC; color: #2E3641;">
                                     {{ __('Login') }}
                                 </button>
 
@@ -79,10 +72,10 @@
         </div>
         <figure class="py-4 text-center" style="color:#DDE1EC">
             <blockquote class="blockquote">
-            <p>"Adults can take a simple holiday for children and f*ck it up."</p>
+                <p>"Adults can take a simple holiday for children and f*ck it up."</p>
             </blockquote>
             <figcaption class="blockquote-footer">
-            <cite title="Source Title" style="color: #DDE1EC">Angry child</cite>
+                <cite title="Source Title" style="color: #DDE1EC">Angry child</cite>
             </figcaption>
         </figure>
 </div>

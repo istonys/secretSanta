@@ -1,11 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    .container {
-        font-family: 'Oswald';
-    }
-</style>
+
 <div class="container">
     <div class="py-3 header text-center fw-bold fs-2" style="color: #DDE1EC">Secret Santa</div>
     <div class="row justify-content-center">
@@ -69,7 +65,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn text-black" style="background-color:#DDE1EC">
+                                <button type="submit" class="btn" style="background-color:#DDE1EC; color: #2E3641;">
                                     {{ __('Register') }}
                                 </button>
                             </div>
@@ -81,10 +77,10 @@
     </div>
     <figure class="py-4 text-center" style="color:#DDE1EC">
         <blockquote class="blockquote">
-        <p>“Christmas is not as much about opening our presents as opening our hearts.”</p>
+            <p>“Christmas is not as much about opening our presents as opening our hearts.”</p>
         </blockquote>
         <figcaption class="blockquote-footer">
-        <cite title="Source Title" style="color: #DDE1EC">Janice Maeditere</cite>
+            <cite title="Source Title" style="color: #DDE1EC">Janice Maeditere</cite>
         </figcaption>
     </figure>
 </div>

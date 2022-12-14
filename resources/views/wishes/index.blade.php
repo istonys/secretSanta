@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="container">
+  <div class="py-3 header text-center fw-bold fs-2" style="color: #DDE1EC">Secret Santa</div>
     <div class="row justify-content-center">
-        wishes blieytttt 
-        <a class="btn btn-primary" href="{{ route('wishes.create') }}">
-         {{ __('create jabana wish\'a ble ') }}
+        <a class="btn btn-primary my-3" style="color:#2E3641; background-color: #DDE1EC" href="{{ route('wishes.create') }}">
+         {{ __('Create a wish!') }}
      </a>
-     <table class="table">
+     <table class="table table-hover" style="color: #DDE1EC">
         <thead>
           <tr>
             <th scope="col">Description</th>
