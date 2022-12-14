@@ -61,6 +61,9 @@
                                     <a class="dropdown-item" href="{{ route('groups.index') }}">
                                         {{ __('Groups') }}
                                    </a>
+                                   <a class="dropdown-item" href="{{ route('invites.index') }}">
+                                    {{ __('Invites') }}
+                                    </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

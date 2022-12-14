@@ -9,12 +9,18 @@
         </div>
         <div class="pull-right">
             <a class="btn btn-success" href="{{ route('groups.create') }}"> Create a new group</a>
+            <a class="btn btn-info" href="{{ route('invites.create') }}">Invite members to your group</a>
         </div>
     </div>
 </div>
 
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+@if ($message = Session::get('error'))
+    <div class="alert alert-failure">
         <p>{{ $message }}</p>
     </div>
 @endif

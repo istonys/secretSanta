@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\GroupUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Invite;
 
 
 class GroupController extends Controller
@@ -42,11 +43,17 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $group=new Group;
-        $group->name = $request['name'];
-        $group->description = $request['description'];
-        $group->user_id = auth()->user()->id;
-        $group->save();
+        $check=Group::where('name',$request->name)->first();
+        if(!$check){
+            $group=new Group;
+            $group->name = $request['name'];
+            $group->description = $request['description'];
+            $group->user_id = auth()->user()->id;
+            $group->save();
+        }
+        else{
+            return redirect()->route('groups.index')->with('error','Group with this name already exists');
+        }
         $groupuser=array([
             'group_id'=>Group::orderBy('id', 'DESC')->first()->id,
             'user_id'=>auth()->user()->id
@@ -113,7 +120,6 @@ class GroupController extends Controller
         ->join('users','group_user.user_id','=','users.id')->where('groups.id','=',$gid)
         ->get(['users.name']);
         return view('groups.members',compact('users'))->with(request()->input('page'));
-        
     }
     public function invite(Group $group){
         $ids=\DB::select('SELECT * from groups WHERE group_id =?',[$group->id]);
@@ -122,19 +128,13 @@ class GroupController extends Controller
     }
     public function leave(Group $group, Group $id){
         $id=auth()->user()->id;
-        //$gid=$group->id;
-        //$group_id=$group->id;
-        // $deleted=DB::table('group_users')->where('group_id',$group_id)->where('user_id',$id)->delete;
         \DB::delete('DELETE * from group_user WHERE group_id =? AND  user_id =?',[$gid,$id]);
-        //\DB::table('group_user')->where('group_id',$group->id)->where('user_id',$id)->delete();
-
-        //$m=\DB::select('SELECT * from group_user WHERE group_id = ?',[$group->id]);
-        //GroupUser::find($group->id);
-        // if($m){
-        //     if($m->user_id==$id){
-        //         $m->delete();
-        //     }
-        // }
         return redirect()->route('groups.index')->with('success','Group left successfully');
     }
+    public function invitation(Invite $invite,Group $group){
+
+    }
+    // public function invitation_view(Group $group){
+    //     return view('groups.invitation')->with($group);
+    // }
 }
