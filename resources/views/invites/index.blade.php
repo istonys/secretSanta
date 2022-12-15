@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+@if ($message = Session::get('error'))
+    <div class="alert alert-failure">
+        <p>{{ $message }}</p>
+    </div>
+@endif
 <div class="container">
     <div class="row justify-content-left">
         Pending invites: 
@@ -12,15 +22,17 @@
                 by: 
                 <span>{{ $pending_invite->invite_by_info }}</span>
                 <span>
-                    <!--<a href="{{ route('invites.edit', ['invite' => $pending_invite]) }}">Accept</a>-->
-                    <a action="{{ route('invites.edit', ['invite' => $pending_invite]) }}">
-                    <input type="submit" value="{{ __('Accept') }}">
+                    
+                    <a href="{{ route('invites.edit', $pending_invite->id) }}">Accept</a>
+                    <!--<a action="{{ route('invites.edit', $pending_invite->id) }}">-->
+                    <!--<input type="submit" value="{{ __('Accept') }}">-->
                 </span>
                 <span>
-                    <a method="post" action="{{ route('invites.destroy', ['invite' => $pending_invite]) }}">
+                    <form action="{{ route('invites.destroy',['invite'=>$pending_invite->id]) }}" method="POST">                   
                         @csrf
                         @method('DELETE')
                         <input type="submit" value="{{ __('Deny') }}">
+                    </form>
                     </a>
                 </span>
             </div>

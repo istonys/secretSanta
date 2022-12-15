@@ -54,11 +54,11 @@ class GroupController extends Controller
         else{
             return redirect()->route('groups.index')->with('error','Group with this name already exists');
         }
-        $groupuser=array([
+        $groupusers=array([
             'group_id'=>Group::orderBy('id', 'DESC')->first()->id,
             'user_id'=>auth()->user()->id
             ]);
-        $group->users()->attach($groupuser);
+        $group->users()->attach($groupusers);
         return redirect()->route('groups.index')->with('success','Group created successfully');
     }
 

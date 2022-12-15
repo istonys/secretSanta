@@ -96,7 +96,12 @@ class InviteController extends Controller
      */
     public function edit(Invite $invite)
     {
-        //
+            \DB::table('group_user')->insert([
+                'group_id'=>$invite->invite_to,
+                'user_id'=>$invite->invitee
+            ]);
+            \DB::delete('DELETE from invites WHERE invitee=? AND invite_to=?',[$invite->invitee,$invite->invite_to]);
+            return redirect()->route('groups.index')->with('success','You have joined the group');
     }
 
     /**
@@ -119,6 +124,7 @@ class InviteController extends Controller
      */
     public function destroy(Invite $invite)
     {
-        //
+        \DB::delete('DELETE from invites WHERE invitee=? AND invite_to=?',[$invite->invitee,$invite->invite_to]);
+        return redirect()->route('invites.index')->with('success','You have deleted the invite');
     }
 }
