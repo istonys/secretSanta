@@ -10,16 +10,16 @@
     <div class="row justify-content-center py-3">
         <a class="btn btn-success my-3" style="color:#DDE1EC"href="{{ route('wishes.create') }}">
          {{ __('Create a wish!') }}
-     </a>
+        </a>
      <table class="table table-hover rounded rounded-3 overflow-hidden" style="color: #ECEBF1">
-        <thead style="background-color: #4a8e7a">
+        <thead style="background-color: #4a8e7a" class="align-middle">
           <tr>
             <th scope="col">Description</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
-        <tbody>
-          @foreach ($wishes as $wish )
+        <tbody class="align-middle">
+          @foreach ($wishes as $wish)
           <tr style="color:#2E3641; background-color: #ECEBF1">
             <th scope="row">{{ $wish->description }}</th>
             <td>

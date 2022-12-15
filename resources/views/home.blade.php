@@ -11,7 +11,7 @@
             <div class="card border-white" style="background-color: #ECEBF1">
                 <div class="card-header border-white" style="background-color:#4a8e7a; color:#ECEBF1">{{ __('Dashboard') }}</div>
 
-                <div class="card-body border-white" style="color: #5f1326">
+                <div class="card-body border-white" style="color:#2E3641">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
