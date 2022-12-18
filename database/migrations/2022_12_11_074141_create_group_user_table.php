@@ -17,6 +17,8 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('user_id');
+            $table->Integer('reserved')->default('0');
+            $table->unsignedBigInteger('gifts_to')->default('0');
 
         });
     }

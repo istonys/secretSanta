@@ -10,6 +10,8 @@ class GroupUser extends Model
     use HasFactory;
     protected $fillable=[
         'group_id',
-        'user_id'
+        'user_id',
+        'reserved',
+        'gifts_to'
     ];
 }

@@ -131,10 +131,24 @@ class GroupController extends Controller
         \DB::delete('DELETE * from group_user WHERE group_id =? AND  user_id =?',[$gid,$id]);
         return redirect()->route('groups.index')->with('success','Group left successfully');
     }
-    public function invitation(Invite $invite,Group $group){
+    public function pull(Group $group){
+        $users=\DB::table('group_user')->where('group_id',$group->id)->get();
+        foreach($users as $user){
+        $bool='0';
+        $group_users=\DB::table('group_user')->where('group_id',$group->id);
+        while($bool=='0'){
+            $persons_name=$group_users->inRandomOrder()->first();
+            if($persons_name->reserved==0&&$persons_name->user_id!=$user->id){
+                \DB::table('group_user')->where('user_id',$persons_name->user_id)
+                ->where('group_id',$persons_name->group_id)->update(['reserved'=>'1']);
+                
+                \DB::table('group_user')->where('user_id',$user->id)
+                ->where('group_id',$user->group_id)->update(['gifts_to'=>$persons_name->user_id]);
+                $bool='1';
+            }
+        }
+    }
+    return redirect()->route('groups.index')->with('success','Group pull initiated');
 
     }
-    // public function invitation_view(Group $group){
-    //     return view('groups.invitation')->with($group);
-    // }
 }

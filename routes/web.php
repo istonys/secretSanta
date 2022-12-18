@@ -19,6 +19,7 @@ Route::middleware(['auth'])->group(function(){
 });
 Route::middleware(['auth'])->group(function(){
     Route::get('groups/members/{group}','App\Http\Controllers\GroupController@members')->name('groups.members');
+    Route::get('groups/pull/{group}','App\Http\Controllers\GroupController@pull')->name('groups.pull');
     //Route::get('groups/invite/{group}','App\Http\Controllers\GroupController@invitation_view')->name('groups.invitation_view');
     //Route::get('groups/invitation_form/{group}','App\Http\Controllers\GroupController@invitation')->name('groups.invitation');
     Route::delete('groups/{group}/{id}','App\Http\Controllers\GroupController@leave')->name('groups.leave');
