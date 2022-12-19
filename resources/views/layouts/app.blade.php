@@ -62,7 +62,7 @@
                                    <a class="dropdown-item" href="{{ route('invites.index') }}">
                                     {{ __('Invites') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('groups.index') }}">
+                                    <a class="dropdown-item" href="{{ route('gifts.index') }}">
                                         {{ __('Your Gifts') }}
                                    </a>
 

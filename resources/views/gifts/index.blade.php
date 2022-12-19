@@ -8,13 +8,11 @@
     </div>
   
     <div class="row justify-content-center py-3">
-        <a class="btn btn-success my-3" style="color:#DDE1EC"href="{{ route('wishes.create') }}">
-         {{ __('Create a wish!') }}
-        </a>
+        
      <table class="table table-hover rounded rounded-3 overflow-hidden" style="color: #ECEBF1">
         <thead style="background-color: #4a8e7a" class="align-middle">
           <tr>
-            <th scope="col">Description</th>
+            <th scope="col">Gift</th>
             <th scope="col">Gifting to</th>
           </tr>
         </thead>
@@ -22,7 +20,7 @@
           @foreach ($gifts as $gift)
           <tr style="color:#2E3641; background-color: #ECEBF1">
             <th scope="row">{{ $gift->description }}</th>
-            <th scope="row">{{ $gift->user_id }}</th>
+            <th scope="row">{{ $gift->gifting_to }}</th>
             <td>
             </td>
           </tr>
