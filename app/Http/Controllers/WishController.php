@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wish;
+use App\Models\Group;
+use App\Models\User;
+use App\Models\Gifts;
+use App\Models\GroupUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Invite;
 
 class WishController extends Controller
 {
@@ -51,5 +57,30 @@ class WishController extends Controller
         $wish->delete();
 
         return redirect()->route('wishes.index');
+    }
+    public function wish_pull(Group $group){
+        $g=$group;
+        $giftee=\DB::table('group_user')->where('user_id',auth()->user()->id)->
+        where('group_id',$group->id)->first();
+        $gifts=\DB::table('wishes')->where('user_id',$giftee->gifts_to)->
+        where('reserved','0')->get();
+        return view('wishes.reserve',['gifts'=>$gifts]);
+    }
+
+    public function reserve(Wish $gift){
+        \DB::table('wishes')->where('description',$gift->description)
+        ->where('user_id',$gift->user_id)->update(['reserved'=>'1']);
+        Gifts::create(
+            [
+                'description'=>$gift->description,
+                'user_id'=>$gift->user_id,
+                'reserved_by'=>auth()->user()->id,
+                'gifting_to'=>\DB::table('users')->where('id',$gift->user_id)->first()->name
+            ]
+        );
+        return redirect()->route('gifts.index')->with('success','Wish reserved');
+        // $wishes=\DB::table('wishes')->join('group_user','wishes.user_id','=','group_user.gifts_to')
+        // ->join('users','group_user.user_id','=','users.id')->where('groups.id','=',$gid)
+        // ->get(['users.name']);
     }
 }

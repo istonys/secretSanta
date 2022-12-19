@@ -39,7 +39,7 @@
             </tr>
         </thead>
         <tbody class="align-middle">
-            @foreach ($groups as $group)
+            @forelse ($groups as $group)
             <tr style="color:#2E3641; background-color: #ECEBF1">
                 <th>{{ $group->name }}</td>
                 <th>{{ $group->description }}</td>
@@ -63,10 +63,17 @@
                     </form> --}}
                 </td>
             </tr>
-            @endforeach
+            @empty
+            <td>
+                You haven't joined any group!
+            </td>
+            @endforelse
+            {{-- @endforeach --}}
+            
+            
         </tbody>
     </table>
-    {{ $groups->links() }}
+    {{-- {{ $groups->links() }} --}}
 
 
 </div>

@@ -13,20 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('wishes', function (Blueprint $table) {
+        Schema::create('gifts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-
+            $table->string('description');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->text('description');
-            $table->integer('reserved')->default(0);
-            $table->unsignedBigInteger('reserved_by')->default('0');
+            $table->unsignedBigInteger('reserved_by');
+            $table->string('gifting_to');
         });
     }
 
@@ -37,7 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wishes');
-
+        Schema::dropIfExists('gifts');
     }
 };

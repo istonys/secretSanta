@@ -20,9 +20,30 @@ class GroupController extends Controller
     public function index()
     {
         $groups=Group::latest()->paginate(10);
+        $userr=auth()->user();
+        $user=\DB::table('users')->where('id',$userr->id)->first();
+        if($user->role == 'admin') {
+            $groups = \DB::table('groups')->latest()->get();
+            //return view('groups.index',compact('groups'));
 
-        return view('groups.index',compact('groups'))->with(request()->input('page'));
+        } else {
+            $groups = \DB::table('groups')->latest()->paginate(10);
+            $check1=\DB::table('group_user')->where('user_id', auth()->user()->id)->first();
+            if($check1){
+                $groupss = \DB::table('group_user')->where('user_id', auth()->user()->id)->pluck('group_id');
+                    $groups=Group::whereIn('id',$groupss)->get();
+                    return view('groups.index',compact('groups'))->with(request()->input('page'));
+        }
+        else{
+        //  $groups=new Group;
+         return view('groups.create')->with('success','Create your first group');
+        }
+        // return view('groups.index',['groups' => $groups]);   
+        }
     }
+
+        
+    
 
     /**
      * Show the form for creating a new resource.
@@ -132,23 +153,27 @@ class GroupController extends Controller
         return redirect()->route('groups.index')->with('success','Group left successfully');
     }
     public function pull(Group $group){
+        $g=$group;
         $users=\DB::table('group_user')->where('group_id',$group->id)->get();
         foreach($users as $user){
-        $bool='0';
-        $group_users=\DB::table('group_user')->where('group_id',$group->id);
-        while($bool=='0'){
-            $persons_name=$group_users->inRandomOrder()->first();
-            if($persons_name->reserved==0&&$persons_name->user_id!=$user->id){
-                \DB::table('group_user')->where('user_id',$persons_name->user_id)
-                ->where('group_id',$persons_name->group_id)->update(['reserved'=>'1']);
-                
-                \DB::table('group_user')->where('user_id',$user->id)
-                ->where('group_id',$user->group_id)->update(['gifts_to'=>$persons_name->user_id]);
-                $bool='1';
+            if($user->gifts_to=='0'){
+                $bool='0';
+                $group_users=\DB::table('group_user')->where('group_id',$group->id);
+                while($bool=='0'){
+                    $persons_name=$group_users->inRandomOrder()->first();
+                    if($persons_name->reserved==0&&$persons_name->user_id!=$user->id){
+                        \DB::table('group_user')->where('user_id',$persons_name->user_id)
+                        ->where('group_id',$persons_name->group_id)->update(['reserved'=>'1']);
+                        
+                        \DB::table('group_user')->where('user_id',$user->id)
+                        ->where('group_id',$user->group_id)->update(['gifts_to'=>$persons_name->user_id]);
+                        $bool='1';
+                    }
+                }
             }
-        }
+
     }
-    return redirect()->route('groups.index')->with('success','Group pull initiated');
+    return redirect()->route('wishes.wish_pull',[$group->id=>$g->id]);
 
     }
 }

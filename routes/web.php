@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['auth'])->group(function(){
+    Route::get('wishes/r/{gift}','App\Http\Controllers\WishController@reserve')->name('wishes.reserve');
+    Route::get('wishes/g/{group}','App\Http\Controllers\WishController@wish_pull')->name('wishes.wish_pull');
     Route::resource('wishes', App\Http\Controllers\WishController::class);
 });
 Route::middleware(['auth'])->group(function(){
@@ -26,7 +28,12 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('groups',App\Http\Controllers\GroupController::class);
 });
 Route::middleware(['auth'])->group(function(){
+    Route::resource('gifts', App\Http\Controllers\GiftsController::class);
+});
+Route::middleware(['auth'])->group(function(){
+
     Route::resource('invites',App\Http\Controllers\InviteController::class);
+
 });
 
 Auth::routes();
