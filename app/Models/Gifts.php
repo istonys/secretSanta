@@ -11,6 +11,7 @@ class Gifts extends Model
     protected $fillable = [
         'description',
         'user_id',
-        'reserved_by'
+        'reserved_by',
+        'gifting_to'
     ];
 }
