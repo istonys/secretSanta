@@ -158,14 +158,14 @@ class GroupController extends Controller
         foreach($users as $user){
             if($user->gifts_to=='0'){
                 $bool='0';
-                $group_users=\DB::table('group_user')->where('group_id',$group->id);
+                $group_users=\DB::table('group_user')->where('group_id',$group->id)->get();
                 while($bool=='0'){
-                    $persons_name=$group_users->inRandomOrder()->first();
-                    if($persons_name->reserved==0&&$persons_name->user_id!=$user->id){
+                    $persons_name=$group_users->random();
+                    // $persons_name=$group_users->orderBy(\DB::raw('RAND()'))->first();
+                    if($persons_name->reserved=='0'&&$persons_name->user_id!=$user->id){
                         \DB::table('group_user')->where('user_id',$persons_name->user_id)
                         ->where('group_id',$persons_name->group_id)->update(['reserved'=>'1']);
-                        
-                        \DB::table('group_user')->where('user_id',$user->id)
+                        \DB::table('group_user')->where('user_id',$user->user_id)
                         ->where('group_id',$user->group_id)->update(['gifts_to'=>$persons_name->user_id]);
                         $bool='1';
                     }
