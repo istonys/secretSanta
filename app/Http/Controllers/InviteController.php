@@ -127,4 +127,5 @@ class InviteController extends Controller
         \DB::delete('DELETE from invites WHERE invitee=? AND invite_to=?',[$invite->invitee,$invite->invite_to]);
         return redirect()->route('invites.index')->with('success','You have deleted the invite');
     }
+    
 }
