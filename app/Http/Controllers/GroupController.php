@@ -19,13 +19,11 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups=Group::latest()->paginate(10);
         $userr=auth()->user();
         $user=\DB::table('users')->where('id',$userr->id)->first();
         if($user->role == 'admin') {
-            $groups = \DB::table('groups')->latest()->get();
-            //return view('groups.index',compact('groups'));
-
+            $groups=Group::latest()->paginate(10);
+            return view('groups.index',compact('groups'));
         } else {
             $groups = \DB::table('groups')->latest()->paginate(10);
             $check1=\DB::table('group_user')->where('user_id', auth()->user()->id)->first();
@@ -35,10 +33,8 @@ class GroupController extends Controller
                     return view('groups.index',compact('groups'))->with(request()->input('page'));
         }
         else{
-        //  $groups=new Group;
          return view('groups.create')->with('success','Create your first group');
         }
-        // return view('groups.index',['groups' => $groups]);   
         }
     }
 
@@ -128,14 +124,11 @@ class GroupController extends Controller
         $gid=$group->id;
         $id=auth()->user()->id;
         \DB::delete('DELETE from group_user WHERE group_id =? AND  user_id =?',[$gid,$id]);
-        // \DB::delete('DELETE from group_user WHERE group_id =?',[$group->id]);
-        // $group->delete();
         return redirect()->route('groups.index')->with('success','Group left successfully');
     }
 
     public function members(Group $group)
     {
-        //$groups=(['name']);
         $gid=$group->id;
         $users=\DB::table('groups')->join('group_user','groups.id','=','group_user.group_id')
         ->join('users','group_user.user_id','=','users.id')->where('groups.id','=',$gid)
@@ -155,25 +148,26 @@ class GroupController extends Controller
     public function pull(Group $group){
         $g=$group;
         $users=\DB::table('group_user')->where('group_id',$group->id)->get();
-        foreach($users as $user){
-            if($user->gifts_to=='0'){
-                $bool='0';
-                $group_users=\DB::table('group_user')->where('group_id',$group->id)->get();
-                while($bool=='0'){
-                    $persons_name=$group_users->random();
-                    // $persons_name=$group_users->orderBy(\DB::raw('RAND()'))->first();
-                    if($persons_name->reserved=='0'&&$persons_name->user_id!=$user->id){
-                        \DB::table('group_user')->where('user_id',$persons_name->user_id)
-                        ->where('group_id',$persons_name->group_id)->update(['reserved'=>'1']);
-                        \DB::table('group_user')->where('user_id',$user->user_id)
-                        ->where('group_id',$user->group_id)->update(['gifts_to'=>$persons_name->user_id]);
-                        $bool='1';
+        if(count($users)!=1){
+            foreach($users as $user){
+                if($user->gifts_to=='0'){
+                    $bool='0';
+                    $group_users=\DB::table('group_user')->where('group_id',$group->id)->get();
+                    while($bool=='0'){
+                        $persons_name=$group_users->random();
+                        if($persons_name->reserved=='0'&&$persons_name->user_id!=$user->id){
+                            \DB::table('group_user')->where('user_id',$persons_name->user_id)
+                            ->where('group_id',$persons_name->group_id)->update(['reserved'=>'1']);
+                            \DB::table('group_user')->where('user_id',$user->user_id)
+                            ->where('group_id',$user->group_id)->update(['gifts_to'=>$persons_name->user_id]);
+                            $bool='1';
+                        }
                     }
                 }
             }
-
+            return redirect()->route('wishes.wish_pull',[$group->id=>$g->id]);
     }
-    return redirect()->route('wishes.wish_pull',[$group->id=>$g->id]);
+    else return redirect()->route('groups.index')->with('error','Group must have two or more members');
 
     }
 }

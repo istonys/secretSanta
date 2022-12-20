@@ -14,7 +14,6 @@ use App\Models\Invite;
 class WishController extends Controller
 {
     public function index() {
-        // if(auth()->user()->role === '')
         if(auth()->user()->role == 'admin') {
             $wishes = Wish::all();
         } else {
@@ -79,8 +78,5 @@ class WishController extends Controller
             ]
         );
         return redirect()->route('gifts.index')->with('success','Wish reserved');
-        // $wishes=\DB::table('wishes')->join('group_user','wishes.user_id','=','group_user.gifts_to')
-        // ->join('users','group_user.user_id','=','users.id')->where('groups.id','=',$gid)
-        // ->get(['users.name']);
     }
 }

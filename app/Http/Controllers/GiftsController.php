@@ -13,7 +13,6 @@ use App\Models\Invite;
 class GiftsController extends Controller
 {
     public function index() {
-        // if(auth()->user()->role === '')
         if(auth()->user()->role == 'admin') {
             $wishes = Gifts::all();
         } else {
