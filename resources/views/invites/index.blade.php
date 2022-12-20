@@ -40,8 +40,6 @@
                     <td>                    
                         <span>
                             <a class="btn btn-success" href="{{ route('invites.edit', $pending_invite->id) }}">Accept</a>
-                            <!--<a action="{{ route('invites.edit', $pending_invite->id) }}">-->
-                            {{-- <!--<input type="submit" value="{{ __('Accept') }}">--> --}}
                         </span>
                         <span>
                             <form action="{{ route('invites.destroy',['invite'=>$pending_invite->id]) }}" method="POST" class="d-inline">                   

@@ -39,7 +39,7 @@
             </tr>
         </thead>
         <tbody class="align-middle">
-            @forelse ($groups as $group)
+            @foreach ($groups as $group)
             <tr style="color:#2E3641; background-color: #ECEBF1">
                 <th>{{ $group->name }}</td>
                 <th>{{ $group->description }}</td>
@@ -55,26 +55,10 @@
                             <button type="submit" class="btn btn-danger">Leave</button> 
                         </form>
                     </span>
-                    {{-- <form action="{{ route('groups.leave',['group'=>$group->id,'id'=>$group->id]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <!--<a class="btn btn-primary" href="{{ route('groups.leave',$group->id) }}"method="POST">Leave</a>-->
-                        <button type="submit">Leave</button>
-                    </form> --}}
                 </td>
             </tr>
-            @empty
-            <td>
-                You haven't joined any group!
-            </td>
-            @endforelse
-            {{-- @endforeach --}}
-            
-            
+            @endforeach      
         </tbody>
     </table>
-    {{-- {{ $groups->links() }} --}}
-
-
 </div>
 @endsection
