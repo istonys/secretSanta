@@ -167,6 +167,7 @@ class GroupController extends Controller
             }
             return redirect()->route('wishes.wish_pull',[$group->id=>$g->id]);
     }
+    
     else return redirect()->route('groups.index')->with('error','Group must have two or more members');
 
     }
