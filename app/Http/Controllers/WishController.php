@@ -69,12 +69,15 @@ class WishController extends Controller
     public function reserve(Wish $gift){
         \DB::table('wishes')->where('description',$gift->description)
         ->where('user_id',$gift->user_id)->update(['reserved'=>'1']);
+        $group_from=\DB::table('group_user')->where('user_id',auth()->user()->id)
+        ->where('gifts_to',$gift->user_id)->first();
         Gifts::create(
             [
                 'description'=>$gift->description,
                 'user_id'=>$gift->user_id,
                 'reserved_by'=>auth()->user()->id,
-                'gifting_to'=>\DB::table('users')->where('id',$gift->user_id)->first()->name
+                'gifting_to'=>\DB::table('users')->where('id',$gift->user_id)->first()->name,
+                'gifting_from'=>\DB::table('groups')->where('id',$group_from->group_id)->first()->name
             ]
         );
         return redirect()->route('gifts.index')->with('success','Wish reserved');

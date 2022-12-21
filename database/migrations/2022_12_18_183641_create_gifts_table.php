@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('reserved_by');
             $table->string('gifting_to');
+            $table->string('gifting_from');
         });
     }
 

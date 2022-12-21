@@ -47,7 +47,7 @@
                     <span class="d-inline">
                         <a class="btn" href="{{ route('groups.members',$group->id) }}" style="color: #ECEBF1; background-color:#2E3641">Show members</a>
                     </span>
-                    <a class="btn btn-success" href="{{ route('groups.pull',$group->id) }}">Start the name pull</a>
+                    <a class="btn btn-success" href="{{ route('groups.pull',$group->id) }}">Reserve your gifts</a>
                     <span class="d-inline">
                         <form action="{{ route('groups.destroy',['group'=>$group->id]) }}" method="POST" class="d-inline">
                             @csrf
