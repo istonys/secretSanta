@@ -33,7 +33,8 @@ class WishController extends Controller
         Wish::create(
             [
                 'description' => $request['description'],
-                'user_id' => auth()->user()->id
+                'user_id' => auth()->user()->id,
+                'user_name'=>\DB::table('users')->where('id',auth()->user()->id)->first()->name
             ]
         );
 

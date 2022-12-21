@@ -14,7 +14,7 @@
           <tr>
             <th scope="col">Gift</th>
             <th scope="col">Gifting to</th>
-            <th scope="col">From group</th>
+            {{-- <th scope="col">From group</th> --}}
           </tr>
         </thead>
         <tbody class="align-middle">
@@ -22,7 +22,7 @@
           <tr style="color:#2E3641; background-color: #ECEBF1">
             <th scope="row">{{ $gift->description }}</th>
             <th scope="row">{{ $gift->gifting_to }}</th>
-            <th scope="row">{{ $gift->gifting_from }}</th>
+            {{-- <th scope="row">{{ $gift->gifting_from }}</th> --}}
             <td>
             </td>
           </tr>

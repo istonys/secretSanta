@@ -27,6 +27,7 @@ return new class extends Migration
             $table->text('description');
             $table->integer('reserved')->default(0);
             $table->unsignedBigInteger('reserved_by')->default('0');
+            $table->text('user_name');
         });
     }
 
