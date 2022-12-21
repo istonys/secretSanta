@@ -2,10 +2,9 @@
 
 @section('content')
 <div class="container">
-
-    <div class="row justify-content-center py-3">
-        <div class="header text-center fw-bold fs-2 w-50 p-3" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
-    </div>
+  <div class="row justify-content-center py-3">
+    <div class="header text-center fw-bold fs-2 w-50" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
+</div>
   
     <div class="row justify-content-center py-3">
         <a class="btn btn-success my-3" style="color:#DDE1EC"href="{{ route('wishes.create') }}">

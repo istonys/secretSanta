@@ -4,7 +4,7 @@
 <div class="container">
 
     <div class="row justify-content-center py-3">
-        <div class="header text-center fw-bold fs-2 w-50 p-3" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
+        <div class="header text-center fw-bold fs-2 w-50" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
     </div>
 
     <div class="row py-3">
@@ -25,7 +25,7 @@
         </div>
     @endif
     @if ($message = Session::get('error'))
-        <div class="alert alert-failure" style="background-color: #4a8e7a">
+        <div class="alert alert-warning">
             <p>{{ $message }}</p>
         </div>
     @endif
