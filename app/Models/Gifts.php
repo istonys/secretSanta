@@ -12,6 +12,7 @@ class Gifts extends Model
         'description',
         'user_id',
         'reserved_by',
-        'gifting_to'
+        'gifting_to',
+        'gifting_from'
     ];
 }
