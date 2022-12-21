@@ -9,7 +9,11 @@
 
     <div class="row py-3">
               <a class="btn btn-primary mt-2" style="width: auto" href="{{ route('groups.index') }}">Go Back</a>
+              @if(count($gifts)>0)
               <h2 class="text-center mt-2 fs-4" style="color: #ECEBF1">You are gifting to: {{ $gifts[0]->user_name }}</h2>
+              @else
+              <h2 class="text-center mt-2 fs-4" style="color: #ECEBF1">User you pulled has no wishes</h2>
+              @endif
     </div>
 
 

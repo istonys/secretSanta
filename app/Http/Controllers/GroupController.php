@@ -147,28 +147,52 @@ class GroupController extends Controller
     }
     public function pull(Group $group){
         $g=$group;
+        $checkk='1';
+        $yes_bitches='1';
+        $current_user=\DB::table('group_user')->where('user_id',auth()->user()->id)->where('group_id',$group->id)->first();
         $users=\DB::table('group_user')->where('group_id',$group->id)->get();
-        if(count($users)!=1){
-            foreach($users as $user){
-                if($user->gifts_to=='0'){
-                    $bool='0';
-                    $group_users=\DB::table('group_user')->where('group_id',$group->id)->get();
-                    while($bool=='0'){
-                        $persons_name=$group_users->random();
-                        if($persons_name->reserved=='0'&&$persons_name->user_id!=$user->user_id){
-                            \DB::table('group_user')->where('user_id',$persons_name->user_id)
-                            ->where('group_id',$persons_name->group_id)->update(['reserved'=>'1']);
-                            \DB::table('group_user')->where('user_id',$user->user_id)
-                            ->where('group_id',$user->group_id)->update(['gifts_to'=>$persons_name->user_id]);
-                            $bool='1';
+        foreach($users as $user){
+            if($user->reserved=='1')$yes_bitches='0';
+            
+        }
+        // foreach($users as $user){
+        //     if($yes_bitches=='0'&&$user->reserved=='0')
+        // }
+        if($yes_bitches=='1'){
+            if(count($users)!=1){
+                foreach($users as $user){
+                    if($user->gifts_to=='0'){
+                        $bool='0';
+                        $group_users=\DB::table('group_user')->where('group_id',$group->id)->get();
+                        while($bool=='0'){
+                            $persons_name=$group_users->random();
+                            if($persons_name->reserved=='0'&&$persons_name->user_id!=$user->user_id){
+                                \DB::table('group_user')->where('user_id',$persons_name->user_id)
+                                ->where('group_id',$persons_name->group_id)->update(['reserved'=>'1']);
+                                \DB::table('group_user')->where('user_id',$user->user_id)
+                                ->where('group_id',$user->group_id)->update(['gifts_to'=>$persons_name->user_id]);
+                                $bool='1';
+                            }
                         }
                     }
                 }
-            }
-            return redirect()->route('wishes.wish_pull',[$group->id=>$g->id]);
-    }
+                foreach($users as $user){
+                    $no_bitches=\DB::table('wishes')->where('user_id',$user->id)->get();
+                    if(count($no_bitches)==0)$checkk='0';
+                }
+                if($checkk=='1'){
+                    return redirect()->route('wishes.wish_pull',[$group->id=>$g->id]);
+                }
+                else{
+                    return redirect()->route('groups.index')->with('error','All members must have a wish');
+                } 
+        }
     
     else return redirect()->route('groups.index')->with('error','Group must have two or more members');
-
+        }
+        else if($current_user->reserved=='1'){
+            return redirect()->route('wishes.wish_pull',[$group->id=>$g->id]);
+        }
+        else return redirect()->route('groups.index')->with('error','Pull has already happened');
     }
 }
