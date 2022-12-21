@@ -6,7 +6,11 @@
     <div class="row justify-content-center py-3">
         <div class="header text-center fw-bold fs-2 w-50 p-3" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
     </div>
+    @if(count($gifts)>0)
     <h style="background-color: #4a8e7a" class="align-middle">You are gifting to: {{ $gifts[0]->user_name }}</h>
+    @else
+    <h style="background-color: #4a8e7a" class="align-middle">User you pulled has no wishes</h>
+    @endif
     <div class="row justify-content-center py-3">
      <table class="table table-hover rounded rounded-3 overflow-hidden" style="color: #ECEBF1">
         <thead style="background-color: #4a8e7a" class="align-middle">
