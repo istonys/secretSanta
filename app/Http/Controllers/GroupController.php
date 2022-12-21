@@ -155,7 +155,7 @@ class GroupController extends Controller
                     $group_users=\DB::table('group_user')->where('group_id',$group->id)->get();
                     while($bool=='0'){
                         $persons_name=$group_users->random();
-                        if($persons_name->reserved=='0'&&$persons_name->user_id!=$user->id){
+                        if($persons_name->reserved=='0'&&$persons_name->user_id!=$user->user_id){
                             \DB::table('group_user')->where('user_id',$persons_name->user_id)
                             ->where('group_id',$persons_name->group_id)->update(['reserved'=>'1']);
                             \DB::table('group_user')->where('user_id',$user->user_id)
