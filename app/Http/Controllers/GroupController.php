@@ -153,13 +153,14 @@ class GroupController extends Controller
         $users=\DB::table('group_user')->where('group_id',$group->id)->get();
         foreach($users as $user){
             if($user->reserved=='1')$yes_bitches='0';
+            $no_bitches=\DB::table('wishes')->where('user_id',$user->user_id)->get();
+            if(count($no_bitches)==0)$checkk='0';
             
         }
-        // foreach($users as $user){
-        //     if($yes_bitches=='0'&&$user->reserved=='0')
-        // }
         if($yes_bitches=='1'){
             if(count($users)!=1){
+                
+                if($checkk=='1'){
                 foreach($users as $user){
                     if($user->gifts_to=='0'){
                         $bool='0';
@@ -176,13 +177,8 @@ class GroupController extends Controller
                         }
                     }
                 }
-                foreach($users as $user){
-                    $no_bitches=\DB::table('wishes')->where('user_id',$user->id)->get();
-                    if(count($no_bitches)==0)$checkk='0';
-                }
-                if($checkk=='1'){
-                    return redirect()->route('wishes.wish_pull',[$group->id=>$g->id]);
-                }
+                return redirect()->route('wishes.wish_pull',[$group->id=>$g->id]);
+            } 
                 else{
                     return redirect()->route('groups.index')->with('error','All members must have a wish');
                 } 
