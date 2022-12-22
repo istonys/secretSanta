@@ -16,9 +16,6 @@
             <div class="pull-left">
                 <h2 style="color: #ECEBF1">Add a new group</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('groups.index') }}"> Back</a>
-            </div>
         </div>
     </div>
 
