@@ -8,16 +8,13 @@
         </div>
     @endif
     <div class="row justify-content-center py-3">
-        <div class="header text-center fw-bold fs-2 w-50 p-3" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
+        <div class="header text-center fw-bold fs-2 w-50" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
     </div>
 
     <div class="row py-3">
         <div class="col-lg-12">
             <div class="pull-left">
                 <h2 style="color: #ECEBF1">Add a new group</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('groups.index') }}"> Back</a>
             </div>
         </div>
     </div>

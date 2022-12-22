@@ -38,8 +38,10 @@ Auth::routes();
 
 
 Route::get('/', function () {
+
     if(Auth::check()) return redirect('/home');
     else return redirect('/login');
+
 });
 
 

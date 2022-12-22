@@ -4,7 +4,7 @@
 <div class="container">
 
     <div class="row justify-content-center py-3">
-        <div class="header text-center fw-bold fs-2 w-50 p-3" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
+        <div class="header text-center fw-bold fs-2 w-50" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
     </div>
 
     <div class="row py-3">
@@ -14,7 +14,7 @@
             </div>
             <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('groups.create') }}"> Create a new group</a>
-                <a class="btn btn-info" href="{{ route('invites.create') }}" style="color: #ECEBF1">Invite members to your group</a>
+                <a class="btn btn-info ms-2" href="{{ route('invites.create') }}" style="color: #ECEBF1">Invite members to your group</a>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
         </div>
     @endif
     @if ($message = Session::get('error'))
-        <div class="alert alert-failure" style="background-color: #4a8e7a">
+        <div class="alert alert-warning">
             <p>{{ $message }}</p>
         </div>
     @endif
@@ -45,14 +45,14 @@
                 <th>{{ $group->description }}</td>
                 <td>                        
                     <span class="d-inline">
-                        <a class="btn" href="{{ route('groups.members',$group->id) }}" style="color: #ECEBF1; background-color:#2E3641">Show members</a>
+                        <a class="btn me-1" href="{{ route('groups.members',$group->id) }}" style="color: #ECEBF1; background-color:#2E3641">Show members</a>
                     </span>
                     <a class="btn btn-success" href="{{ route('groups.pull',$group->id) }}">Reserve your gifts</a>
                     <span class="d-inline">
                         <form action="{{ route('groups.destroy',['group'=>$group->id]) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')       
-                            <button type="submit" class="btn btn-danger">Leave</button> 
+                            <button type="submit" class="btn btn-danger my-1 w-50" style="margin-left: 60px">Leave</button> 
                         </form>
                     </span>
                 </td>

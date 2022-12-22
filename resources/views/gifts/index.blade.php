@@ -4,7 +4,7 @@
 <div class="container">
 
     <div class="row justify-content-center py-3">
-        <div class="header text-center fw-bold fs-2 w-50 p-3" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
+        <div class="header text-center fw-bold fs-2 w-50" style="color: #ECEBF1; border-bottom: 1px solid #ECEBF1">Secret Santa</div>
     </div>
   
     <div class="row justify-content-center py-3">
@@ -23,8 +23,6 @@
             <th scope="row">{{ $gift->description }}</th>
             <th scope="row">{{ $gift->gifting_to }}</th>
             {{-- <th scope="row">{{ $gift->gifting_from }}</th> --}}
-            <td>
-            </td>
           </tr>
       @endforeach
         </tbody>
