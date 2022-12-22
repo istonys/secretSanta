@@ -40,7 +40,7 @@
                         </p>
                     </div>
                     <div class="row d-flex justify-content-center">
-                        <h2 class="text-center">Let's get started!</h2>
+                        <h2 class="text-center">Lets get started!</h2>
                         <a class="btn btn btn-danger w-auto" href="{{ route('wishes.index') }}">Your Wishes!</a>
                         <a class="btn btn btn-success w-auto ms-3" href="{{ route('groups.index') }}">Groups!</a>
                     </div>
